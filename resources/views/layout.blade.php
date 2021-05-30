@@ -23,10 +23,10 @@
               <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
           </ul>
       </div>
-  </nav>
-      <div class="container">
-          @yield('content')
-      </div>
+    </nav>
+    <div class="container">
+        @yield('content')
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
