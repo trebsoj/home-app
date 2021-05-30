@@ -14,7 +14,8 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+        $items = Link::all();
+        return view('link.index', compact('items'));
     }
 
     /**
@@ -35,7 +36,8 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Link::create($request->all());
+        return back();
     }
 
     /**
@@ -57,7 +59,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        //
+        return view('link.edit', compact('link'));
     }
 
     /**
@@ -69,7 +71,8 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
-        //
+        $link->update($request->all());
+        return $this->return();
     }
 
     /**
@@ -80,6 +83,11 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        //
+        $link->delete();
+        return $this->return();
+    }
+
+    public function return(){
+        return redirect()->route('link.index');
     }
 }

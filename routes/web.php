@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\LinkController;
+use App\Models\Link;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -13,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PageController::class, 'index']);
-Route::post('link', [PageController::class, 'linkInsert'])->name('link.insert');
+Route::get('/', [LinkController::class, 'index']);
+
+Route::resources([
+    'link' => LinkController::class
+]);
