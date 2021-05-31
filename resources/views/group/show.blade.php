@@ -1,6 +1,8 @@
-@extends('layout', $groups)
+@extends('layouts') 
+
 
 @section('content')
+
 
 
 <form action="{{route('link.store')}}" method="POST" class="row g-3 needs-validation" novalidate>
@@ -45,4 +47,8 @@
         @endforeach
     </tbody>
   </table>
+
+
+
+
 @endsection

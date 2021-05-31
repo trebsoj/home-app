@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Link;
 use App\Models\Group;
+use App\Models\Link;
 use Illuminate\Http\Request;
-use PHPUnit\TextUI\XmlConfiguration\Groups;
 
-class LinkController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,6 @@ class LinkController extends Controller
      */
     public function index()
     {
-        $items = Link::all();
-        $groups = Group::all();
-        return view('link.index', compact('items', 'groups'));
     }
 
     /**
@@ -28,7 +24,6 @@ class LinkController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -39,58 +34,55 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
-        Link::create($request->all());
+        Group::create($request->all());
         return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Link $link)
+    public function show(Group $group)
     {
-        //
+        $items = Link::all();
+        $groups = Group::all();
+        return view('group.show', compact('items', 'groups'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(Link $link)
+    public function edit(Group $group)
     {
-        return view('link.edit', compact('link'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Link $link)
+    public function update(Request $request, Group $group)
     {
-        $link->update($request->all());
-        return $this->return();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Link $link)
+    public function destroy(Group $group)
     {
-        $link->delete();
+        $group->delete();
         return $this->return();
-    }
-
-    public function return(){
-        return redirect()->route('link.index');
     }
 }

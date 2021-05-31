@@ -59,16 +59,18 @@
                   Reports
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="layers"></span>
-                  Integrations
-                </a>
-              </li>
+              @foreach ($groups as $item)
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('group.show', $item)}}">
+                    <span data-feather="link"></span>
+                    {{$item->name}}
+                  </a>
+                </li>
+              @endforeach
             </ul>
 
             
-            <form action="{{route('link.store')}}" method="POST" class="mt-4 row g-1 needs-validation" novalidate>
+            <form action="{{route('group.store')}}" method="POST" class="mt-4 row g-1 needs-validation" novalidate>
               @csrf
               <div class="col-12">
                 <input type="text" name="name" placeholder="New group" class="form-control" id="vLinkName" required>
