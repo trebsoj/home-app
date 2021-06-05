@@ -1,4 +1,4 @@
-@extends('layouts') 
+@extends('layout', $groups)
 
 
 @section('content')
@@ -7,6 +7,7 @@
 
 <form action="{{route('link.store')}}" method="POST" class="row g-3 needs-validation" novalidate>
     @csrf
+    <input type="hidden" name="id_group" value="{{$group->id}}">
     <div class="col-md-5">
       <input type="text" name="name" placeholder="Name" class="form-control" id="vLinkName" required>
       <div class="valid-feedback"></div>
@@ -30,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-        @foreach ($items as $item)
+        @foreach ($links as $item)
             <tr>
                 <th scope="row">{{$item->id}}</th>
                 <td>{{$item->name}}</td>
