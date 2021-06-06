@@ -3,22 +3,23 @@
 
 @section('content')
 
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Edit link</h1>
+    <h1 class="h2">Edit variable</h1>
 </div>
 
 
-<form action="{{route('link.update', $link->id)}}" method="POST" class="row g-3 needs-validation" novalidate>
+<form action="{{route('variable.update', $variable->id)}}" method="POST" class="row g-3 needs-validation" novalidate>
     @method('PUT')
     @csrf
     <div class="col-md-6">
-        <label>Name</label>
-        <input type="text" name="name" placeholder="Name" class="form-control" id="vLinkName" value="{{$link->name}}" required>
+        <label>Key</label>
+        <input type="text" name="key" placeholder="Key" class="form-control" value="{{$variable->key}}" required>
         <div class="valid-feedback"></div>
     </div>
     <div class="col-md-6">
-        <label >Link</label>
-      <input type="text" name="href" placeholder="Link" class="form-control" id="vLinkHref"value="{{$link->href}}" required>
+        <label>Value</label>
+      <input type="text" name="value" placeholder="Value" class="form-control" value="{{$variable->value}}" required>
       <div class="valid-feedback"></div>
     </div>
     <div class="col-6"style="text-align:end">
@@ -28,5 +29,8 @@
         <a href="{{ URL::previous() }}" class="btn btn-danger btn-block">Cancel</a>
     </div>
 </form>
+
+
+
 
 @endsection

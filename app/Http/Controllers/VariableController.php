@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Link;
-use App\Models\Group;
 use App\Models\Variable;
 use Illuminate\Http\Request;
-use PHPUnit\TextUI\XmlConfiguration\Groups;
 
-class LinkController extends Controller
+class VariableController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +14,8 @@ class LinkController extends Controller
      */
     public function index()
     {
-        return view('link.index', [
-            'items' => $this->replaceVariables(Link::with('group')->get())
-        ]);
+        $variables = Variable::orderby('key')->get();
+        return view('variable.index', compact('variables'));
     }
 
     /**
@@ -41,21 +37,20 @@ class LinkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'href' => 'required',
-            'id_group' => 'required',
+            'key' => 'required',
+            'value' => 'required',
         ]);
-        Link::create($request->all());
+        Variable::create($request->all());
         return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Variable  $variable
      * @return \Illuminate\Http\Response
      */
-    public function show(Link $link)
+    public function show(Variable $variable)
     {
         //
     }
@@ -63,54 +58,45 @@ class LinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Variable  $variable
      * @return \Illuminate\Http\Response
      */
-    public function edit(Link $link)
+    public function edit(Variable $variable)
     {
-        return view('link.edit', compact('link'));
+        return view('variable.edit', compact('variable'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Variable  $variable
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Link $link)
+    public function update(Request $request, Variable $variable)
     {
         $request->validate([
-            'name' => 'required',
-            'href' => 'required',
+            'key' => 'required',
+            'value' => 'required',
         ]);
-        $link->update($request->all());
-        return redirect()->route('group.show', ['group' => $link->id_group]);
+        $variable->update($request->all());
+        return redirect()->route('variable.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Link  $link
+     * @param  \App\Models\Variable  $variable
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Link $link)
+    public function destroy(Variable $variable)
     {
-        $link->delete();
+        $variable->delete();
         return $this->return();
     }
 
     public function return(){
         return back();
     }
-
-    public function replaceVariables($links){
-        $variables = Variable::all();
-        foreach ($links as $l) {
-            foreach ($variables as $v) {
-                $l->href = str_replace($v->key, $v->value, $l->href);
-            }
-        }
-        return $links;
-    }
 }
+

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\VariableController;
 use App\Models\Link;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::get('/', [LinkController::class, 'index']);
 Route::resources([
     'link' => LinkController::class,
     'group' => GroupController::class,
+    'variable' => VariableController::class,
 ]);
 
 Route::get('/clear-cache', function() {

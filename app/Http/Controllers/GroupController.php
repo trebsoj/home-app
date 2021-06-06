@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+
+    protected $linkController;
+    public function __construct(LinkController $linkController)
+    {
+        $this->linkController = $linkController;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +56,9 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        $links = Link::where('id_group', '=', $group->id)->orderBy('name', 'asc')->get();
+        $links = $this->linkController->replaceVariables(
+            Link::where('id_group', '=', $group->id)->orderBy('name', 'asc')->get()
+        );
         return view('group.show', compact('links', 'group'));
     }
 

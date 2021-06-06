@@ -11,13 +11,17 @@
 <form action="{{route('group.update', $group->id)}}" method="POST" class="row g-3 needs-validation" novalidate>
     @method('PUT')
     @csrf
-    <div class="col-md-5">
+    <div class="col-md-12">
+      <label>Name</label>
       <input type="text" name="name" placeholder="Name" class="form-control" id="vGroupName" value="{{$group->name}}" required>
       <div class="valid-feedback"></div>
     </div>
-    <div class="col-md-1">
-    <button class="btn btn-success btn-block" type="submit">Edit</button>
-  </div>
+    <div class="col-6"style="text-align:end">
+        <button class="btn btn-success btn-block" type="submit">Save</button>
+    </div>
+    <div class="col-6" >
+        <a href="{{ URL::previous() }}" class="btn btn-danger btn-block">Cancel</a>
+    </div>
 </form>
 
 @endsection
