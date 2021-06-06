@@ -1,22 +1,7 @@
-@extends('layout', $groups)
+@extends('layout')
 
 @section('content')
 
-
-<form action="{{route('link.store')}}" method="POST" class="row g-3 needs-validation" novalidate>
-    @csrf
-    <div class="col-md-5">
-      <input type="text" name="name" placeholder="Name" class="form-control" id="vLinkName" required>
-      <div class="valid-feedback"></div>
-    </div>
-    <div class="col-md-5">
-      <input type="text" name="href" placeholder="Link" class="form-control" id="vLinkHref" required>
-      <div class="valid-feedback"></div>
-    </div>
-    <div class="col-md-1">
-    <button class="btn btn-success btn-block" type="submit">Add</button>
-  </div>
-</form>
 
 <table class="table">
     <thead>

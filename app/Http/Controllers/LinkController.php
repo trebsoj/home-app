@@ -17,8 +17,7 @@ class LinkController extends Controller
     public function index()
     {
         $items = Link::all();
-        $groups = Group::all();
-        return view('link.index', compact('items', 'groups'));
+        return view('link.index', compact('items'));
     }
 
     /**

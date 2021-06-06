@@ -1,8 +1,19 @@
-@extends('layout', $groups)
+@extends('layout')
 
 
 @section('content')
 
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{$group->name}}</h1>
+    <div class="">
+        <a href="{{route('group.edit',$group)}}" class="btn btn-warning btn-sm">Edit</a>
+        <form action="{{route('group.destroy', $group)}}" method="POST" class="d-inline">
+          @method('DELETE')
+          @csrf
+          <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+        </form>
+    </div>
+</div>
 
 
 <form action="{{route('link.store')}}" method="POST" class="row g-3 needs-validation" novalidate>

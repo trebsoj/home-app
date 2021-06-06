@@ -47,9 +47,8 @@ class GroupController extends Controller
     public function show(Group $group)
     {
         $links = Link::where('id_group', '=', $group->id)->get();
-        $groups = Group::all();
         echo $group;
-        return view('group.show', compact('links', 'groups', 'group'));
+        return view('group.show', compact('links', 'group'));
     }
 
     /**

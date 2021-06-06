@@ -3,6 +3,7 @@
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LinkController;
 use App\Models\Link;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,8 @@ Route::resources([
     'link' => LinkController::class,
     'group' => GroupController::class,
 ]);
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
