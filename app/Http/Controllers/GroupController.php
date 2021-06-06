@@ -34,8 +34,11 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:groups'
+        ]);
         Group::create($request->all());
-        return back();
+        return view('group.show', compact('links', 'group'));
     }
 
     /**
@@ -46,8 +49,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        $links = Link::where('id_group', '=', $group->id)->get();
-        echo $group;
+        $links = Link::where('id_group', '=', $group->id)->orderBy('name', 'asc')->get();
         return view('group.show', compact('links', 'group'));
     }
 
@@ -59,7 +61,7 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        return view('group.edit', compact('group'));
     }
 
     /**
@@ -71,7 +73,11 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:groups'
+        ]);
+        $group->update($request->all());
+        return redirect()->route('group.show',['group' => $group->id]);
     }
 
     /**
@@ -83,6 +89,6 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         $group->delete();
-        return $this->return();
+        return redirect('/');
     }
 }

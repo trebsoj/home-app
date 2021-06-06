@@ -16,7 +16,7 @@ class LinkController extends Controller
      */
     public function index()
     {
-        $items = Link::all();
+        $items = Link::with('group')->get();
         return view('link.index', compact('items'));
     }
 
@@ -38,6 +38,11 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'href' => 'required',
+            'id_group' => 'required',
+        ]);
         Link::create($request->all());
         return back();
     }
@@ -73,8 +78,13 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
+        $request->validate([
+            'name' => 'required',
+            'href' => 'required',
+            'id_group' => 'required',
+        ]);
         $link->update($request->all());
-        return $this->return();
+        return redirect()->route('group.show', ['group' => $link->id_group]);
     }
 
     /**
@@ -90,6 +100,6 @@ class LinkController extends Controller
     }
 
     public function return(){
-        return redirect()->route('link.index');
+        return back();
     }
 }

@@ -1,19 +1,23 @@
-@extends('layout') 
+@extends('layout')
 
 
 @section('content')
 
-<h1>Edit</h1>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Edit link</h1>
+</div>
 
 
 <form action="{{route('link.update', $link->id)}}" method="POST" class="row g-3 needs-validation" novalidate>
     @method('PUT')
     @csrf
     <div class="col-md-5">
-      <input type="text" name="name" placeholder="Name" class="form-control" id="vLinkName" value="{{$link->name}}" required>
-      <div class="valid-feedback"></div>
+        <label for="exampleInputEmail1">Name</label>
+        <input type="text" name="name" placeholder="Name" class="form-control" id="vLinkName" value="{{$link->name}}" required>
+        <div class="valid-feedback"></div>
     </div>
     <div class="col-md-5">
+        <label for="exampleInputEmail1">Link</label>
       <input type="text" name="href" placeholder="Link" class="form-control" id="vLinkHref"value="{{$link->href}}" required>
       <div class="valid-feedback"></div>
     </div>

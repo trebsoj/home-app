@@ -3,14 +3,15 @@
 
 @section('content')
 
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
     <h1 class="h2">{{$group->name}}</h1>
     <div class="">
         <a href="{{route('group.edit',$group)}}" class="btn btn-warning btn-sm">Edit</a>
         <form action="{{route('group.destroy', $group)}}" method="POST" class="d-inline">
           @method('DELETE')
           @csrf
-          <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+          <button class="btn btn-danger btn-sm" type="submit"
+          onclick="return confirm('Are you sure you want to delete this group?')">Delete</button>
         </form>
     </div>
 </div>
@@ -35,24 +36,21 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col">Link</th>
-        <th scope="col">Handle</th>
+        <th scope="col" style="text-align:end">Actions</th>
       </tr>
     </thead>
     <tbody>
         @foreach ($links as $item)
             <tr>
-                <th scope="row">{{$item->id}}</th>
-                <td>{{$item->name}}</td>
-                <td>{{$item->href}}</td>
-                <td>
+                <td><a href="//{{$item->href}}" class="link-success" target="_blank"> {{$item->name}}</a></td>
+                <td style="text-align:end">
                   <a href="{{route('link.edit', $item)}}" class="btn btn-warning btn-sm">Edit</a>
                   <form action="{{route('link.destroy', $item)}}" method="POST" class="d-inline">
                     @method('DELETE')
                     @csrf
-                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                    <button class="btn btn-danger btn-sm" type="submit"
+                        onclick="return confirm('Are you sure you want to delete this link?')">Delete</button>
                   </form>
                 <td>
             </tr>

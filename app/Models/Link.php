@@ -9,4 +9,8 @@ class Link extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'href', 'id_group'];
+
+    public function group(){
+        return $this->belongsTo(Group::class, 'id_group');
+    }
 }
