@@ -18,8 +18,10 @@
       <input type="text" name="value" placeholder="Value" class="form-control" required>
       <div class="valid-feedback"></div>
     </div>
-    <div class="col-md-1">
-    <button class="btn btn-success btn-block" type="submit">Add</button>
+    <div class="col-md-2" style="text-align:center">
+        <button type="submit" class="btn btn-labeled btn-success px-3">
+            <span class="btn-label"><i class="fa fa-plus"></i></span>
+        </button>
   </div>
 </form>
 
@@ -37,14 +39,17 @@
                 <td>{{$item->key}}</td>
                 <td>{{$item->value}}</td>
                 <td style="text-align:end">
-                  <a href="{{route('variable.edit', $item)}}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{route('variable.edit', $item)}}" class="btn btn-warning btn-sm px-3">
+                        <span class="btn-label"><i class="fa fa-pencil"></i></span>
+                    </a>
                   <form action="{{route('variable.destroy', $item)}}" method="POST" class="d-inline">
                     @method('DELETE')
                     @csrf
-                    <button class="btn btn-danger btn-sm" type="submit"
-                        onclick="return confirm('Are you sure you want to delete this variable?')">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-labeled btn-danger px-3" onclick="return confirm('Are you sure you want to delete this variable?')">
+                      <span class="btn-label"><i class="fa fa-trash"></i></span>
+                    </button>
                   </form>
-                <td>
+                </td>
             </tr>
         @endforeach
     </tbody>

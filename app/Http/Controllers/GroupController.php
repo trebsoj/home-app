@@ -45,7 +45,7 @@ class GroupController extends Controller
             'name' => 'required|unique:groups'
         ]);
         Group::create($request->all());
-        return view('group.show', compact('links', 'group'));
+        return back();
     }
 
     /**
