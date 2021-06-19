@@ -17,15 +17,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LinkController::class, 'index']);
+Route::get('/', [LinkController::class, 'index'])->middleware('auth')->name('home');
 
-Route::resources([
-    'link' => LinkController::class,
-    'group' => GroupController::class,
-    'variable' => VariableController::class,
-]);
+Route::resources(
+    [
+        'link' => LinkController::class,
+        'group' => GroupController::class,
+        'variable' => VariableController::class,
+    ],
+    [
+        'middleware' => ['auth']
+    ]
+);
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Cache is cleared";
 });
+
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

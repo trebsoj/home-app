@@ -15,20 +15,17 @@
   </head>
 
   <body>
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-md-3 col-lg-2 px-3" href="{{route('link.index')}}">/home</a>
-      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button"
-        data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
       </button>
-    </header>
+  </header>
 
     <div class="container-fluid">
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
           <div class="position-sticky pt-3">
-
 
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -65,6 +62,17 @@
                 </button>
               </div>
             </form>
+
+
+              <form action="{{route('logout')}}" method="POST" class="mt-5 row g-1 needs-validation" id="fmLogout" novalidate>
+                  @csrf
+                  <div class="gap-2" style="text-align: center;">
+                      <button type="submit" class="btn btn-labeled btn-danger btn-block" onclick="return confirm('Are you sure you want to log out?')">
+                          <span class="btn-label"><i class="fa fa-times-circle"></i></span>
+                          Exit
+                      </button>
+                  </div>
+              </form>
           </div>
         </nav>
 
