@@ -29,7 +29,7 @@
 
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('variable.index')}}">
+                    <a class="nav-link {{ Request::is('variable') ? 'active' : '' }}" href="{{route('variable.index')}}">
                         <span data-feather="link"></span>
                         Variables
                     </a>
@@ -41,7 +41,7 @@
             <ul class="nav flex-column">
               @foreach ($groups as $item)
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('group.show', $item)}}">
+                  <a class="nav-link {{ Helper::isMenuActive($item, Request::segment(1), Request::segment(2)) ? 'active' : '' }}" href="{{route('group.show', $item)}}">
                     <span data-feather="link"></span>
                     {{$item->name}}
                   </a>
