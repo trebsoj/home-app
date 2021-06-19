@@ -13,12 +13,20 @@ class LinkController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
         return view('link.index', [
-            'items' => $this->replaceVariables(Link::with('group')->get())
+            'items' => $this->replaceVariables(
+                Link::with('group')
+                    ->get()
+                    ->sortBy(function ($link) {
+                        return strtoupper("{$link->group->name}{$link->name}");
+                    })
+                    ->values()
+                    ->all()
+            )
         ]);
     }
 
