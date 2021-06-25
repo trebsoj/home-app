@@ -15,19 +15,22 @@ help: ## Show this help
 
 sh-app: ## Start shell into app container
 	docker-compose run $(DC_RUN_ARGS) app bash
+
 sh-db: ## Start shell into app container
 	docker-compose run $(DC_RUN_ARGS) db bash
+
 sh-webserver: ## Start shell into app container
 	docker-compose run $(DC_RUN_ARGS) webserver bash
 
 init: ## Make full application initialization
-	docker-compose run $(DC_RUN_ARGS) --no-deps app composer install --ansi --prefer-dist
+	docker-compose run $(DC_RUN_ARGS) --no-deps app composer install --ansi --prefer-dist --optimize-autoloader --no-dev
 	docker-compose run $(DC_RUN_ARGS) app php ./artisan key:generate
 	docker-compose run $(DC_RUN_ARGS) app php ./artisan migrate --force
 
 up: ## Create and start containers
 	APP_UID=$(shell id -u) APP_GID=$(shell id -g) docker-compose up --detach --remove-orphans --scale queue=2
-	@printf "\n   \e[30;42m %s \033[0m\n\n" 'Navigate your browser to ⇒ http://127.0.0.1:8080 or https://127.0.0.1:8443';
+	@printf "\n   \e[30;42m %s \033[0m\n\n" 'Navigate your browser to ⇒ http://127.0.0.1:8080';
+	@printf "   \e[30;42m %s \033[0m\n" 'If it is the first execution, execute (make init) to initialize the application';
 
 down: ## Stop containers
 	docker-compose down

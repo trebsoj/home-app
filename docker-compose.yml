@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile
     image: digitalocean.com/php
-    container_name: app
+    container_name: home-app_app
     restart: unless-stopped
     tty: true
     environment:
@@ -16,7 +16,7 @@ services:
     working_dir: /var/www
     volumes:
       - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
     links:
@@ -25,7 +25,7 @@ services:
   #Nginx Service
   webserver:
     image: nginx:alpine
-    container_name: webserver
+    container_name: home-app_webserver
     restart: unless-stopped
     tty: true
     ports:
@@ -39,7 +39,7 @@ services:
   #MySQL Service
   db:
     image: mysql:5.7.22
-    container_name: db
+    container_name: home-app_db
     restart: unless-stopped
     tty: true
     command: --default-authentication-plugin=mysql_native_password
