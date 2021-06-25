@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Group;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +15,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -24,7 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $groups = Group::orderBy('name', 'asc')->get();
-        view()->share('groups', $groups);
+//        if (Schema::hasTable('groups')) {
+//            $groups = Group::orderBy('name', 'asc')->get();
+//            view()->share('groups', $groups);
+//        }
     }
 }
