@@ -1,10 +1,10 @@
-
+![alt text](img/1.png)
+![alt text](img/2.png)
+![alt text](img/3.png)
 
 # Features list
 - For local application running, you need just two dependencies - installed `docker` and `docker-compose` (`make` is optional, but strongly recommended)
-- Application built with Laravel PHP
-- Mysql as a database
-- Nginx as a webserver
+- Application built with Laravel PHP + bootstrap + mysql + nginx
 - One only user (admin)
 - Create link groups
 - Create variables for the links
