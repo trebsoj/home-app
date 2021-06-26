@@ -12,20 +12,27 @@
 
 # How to use
 
-**1. Configuration file**
+**1. Clone repository**
+```shell
+$ git clone https://github.com/trebsoj/home-app.git
+```
+
+**2. Configuration file**
 
 Creation of the configuration file from the example .env.example,
 in this file you can configure the database parameters and the application port
 
-`cp .env.exemple .env`
+```shell
+$ cp .env.exemple .env
+```
 
-**2. Start the application**
+**3. Start the application**
 
 ```shell
 $ make up
 ```
 
-2.1. If it is the **first execution**, execute this command to initialize the application
+3.1. If it is the **first execution**, execute this command to initialize the application
 
 ```shell
 $ make init
