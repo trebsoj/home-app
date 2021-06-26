@@ -14,13 +14,13 @@ help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {printf "  \033[32m%-18s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 sh-app: ## Start shell into app container
-	docker-compose run $(DC_RUN_ARGS) app bash
+	docker-compose run $(DC_RUN_ARGS) app sh
 
 sh-db: ## Start shell into app container
-	docker-compose run $(DC_RUN_ARGS) db bash
+	docker-compose run $(DC_RUN_ARGS) db sh
 
 sh-webserver: ## Start shell into app container
-	docker-compose run $(DC_RUN_ARGS) webserver bash
+	docker-compose run $(DC_RUN_ARGS) webserver sh
 
 init: ## Make full application initialization
 	docker-compose run $(DC_RUN_ARGS) --no-deps app composer install --ansi --prefer-dist --optimize-autoloader --no-dev
@@ -29,7 +29,7 @@ init: ## Make full application initialization
 
 up: ## Create and start containers
 	APP_UID=$(shell id -u) APP_GID=$(shell id -g) docker-compose up --detach --remove-orphans --scale queue=2
-	@printf "\n   \e[30;42m %s \033[0m\n\n" 'Navigate your browser to ⇒ http://127.0.0.1:8080';
+	@printf "\n   \e[30;42m %s \033[0m\n\n" 'Navigate your browser to ⇒ http://127.0.0.1:{APP_PORT}';
 	@printf "   \e[30;42m %s \033[0m\n" 'If it is the first execution, execute (make init) to initialize the application';
 
 down: ## Stop containers

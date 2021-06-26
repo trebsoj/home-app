@@ -1,35 +1,72 @@
 
-# home-app
 
-## Development mode
-sudo apt install php php-xml php-mysql composer
+# Features list
+- For local application running, you need just two dependencies - installed `docker` and `docker-compose` (`make` is optional, but strongly recommended)
+- Application built with Laravel PHP
+- Mysql as a database
+- Nginx as a webserver
+- One only user (admin)
+- Create link groups
+- Create variables for the links
+    - For example, we can save the domain https://github.com domain as `$git`, so all the links that refer to this domain, we will only have to save the link as: `$git/trebsoj`.
 
-cp .env.exemple .env
+# How to use
 
-php artisan key:generate
+**1. Configuration file**
 
-composer install
-composer global require laravel/installer
+Creation of the configuration file from the example .env.example,
+in this file you can configure the database parameters and the application port
 
-./vendor/bin/sail up
+`cp .env.exemple .env`
 
-## Production deployment
-cp .env.exemple .env
+**2. Start the application**
 
-docker-compose up -d
+```shell
+$ make up
+```
 
-docker-compose exec app php artisan config:cache
+2.1. If it is the **first execution**, execute this command to initialize the application
 
-docker-compose exec app php artisan route:cache
+```shell
+$ make init
+```
 
-docker-compose exec app php artisan view:cache
+# How to
+### Open the shell in the container?
 
-docker-compose exec app php artisan cache:clear
+Execute in your terminal:
 
-docker-compose exec app composer install --optimize-autoloader --no-dev
+```shell
+$ make sh-app
+```
+```shell
+$ make sh-db
+```
+```shell
+$ make sh-webserver
+```
 
-docker-compose exec app php artisan key:generate
+### Watch logs?
 
-docker-compose exec app php artisan migrate
+```shell
+$ docker-compose logs -f
+```
 
+### Restart admin user?
+- Connect to the database container
 
+```shell
+$ make sh-db
+```
+
+- Connect to mysql (Use credentials from the .env file)
+
+```shell
+$ mysql --host db -u {DB_USER} -p
+```
+- Enter de password {DB_PASSWORD}
+- Truncate the users table
+```shell
+  truncate table home_app.users;
+```
+- Now when you enter the application again, it will ask you to re-register the admin user
