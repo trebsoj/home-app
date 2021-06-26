@@ -49,7 +49,11 @@
     <tbody>
         @foreach ($links as $item)
             <tr>
-                <td><a href="//{{$item->href}}" class="link-success" target="_blank"> {{$item->name}}</a></td>
+                @if(str_contains($item->href, 'http'))
+                    <td><a href="{{$item->href}}" class="link-success" target="_blank"> {{$item->name}}</a></td>
+                @else
+                    <td><a href="\\{{$item->href}}" class="link-success" target="_blank"> {{$item->name}}</a></td>
+                @endif
                 <td style="text-align:end">
                   <a href="{{route('link.edit', $item)}}" class="btn btn-warning btn-sm px-3">
                       <span class="btn-label"><i class="fa fa-pencil"></i></span>
