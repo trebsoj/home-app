@@ -26,7 +26,7 @@ Creation of the configuration file from the example .env.example,
 in this file you can configure the database parameters and the application port
 
 ```shell
-$ cp .env.exemple .env
+$ cp .env.example .env
 ```
 
 **3. Start the application**

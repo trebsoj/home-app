@@ -29,7 +29,7 @@ init: ## Make full application initialization
 
 up: ## Create and start containers
 	APP_UID=$(shell id -u) APP_GID=$(shell id -g) docker-compose up --detach --remove-orphans --scale queue=2
-	@printf "\n   \e[30;42m %s \033[0m\n\n" 'Navigate your browser to ⇒ http://localhost:{APP_PORT}';
+	@printf "\n   \e[30;42m %s \033[0m\n\n" 'Navigate your browser to ⇒  {APP_URL}:{APP_PORT}';
 	@printf "   \e[30;42m %s \033[0m\n" 'If it is the first execution, execute (make init) to initialize the application';
 
 down: ## Stop containers
