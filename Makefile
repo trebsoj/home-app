@@ -26,6 +26,8 @@ init: ## Make full application initialization
 	docker-compose run $(DC_RUN_ARGS) --no-deps app composer install --ansi --prefer-dist --optimize-autoloader --no-dev
 	docker-compose run $(DC_RUN_ARGS) app php ./artisan key:generate
 	docker-compose run $(DC_RUN_ARGS) app php ./artisan migrate --force
+    docker-compose run $(DC_RUN_ARGS) webserver chgrp -R www-data /var/www/storage /var/www/bootstrap/cache
+	docker-compose run $(DC_RUN_ARGS) webserver chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
 up: ## Create and start containers
 	APP_UID=$(shell id -u) APP_GID=$(shell id -g) docker-compose up --detach --remove-orphans --scale queue=2
