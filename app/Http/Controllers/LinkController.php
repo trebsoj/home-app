@@ -53,6 +53,7 @@ class LinkController extends Controller
             'href' => 'required',
             'id_group' => 'required',
         ]);
+//        return $request->all();
         Link::create($request->all());
         return back();
     }
@@ -88,9 +89,11 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
+        $request['public'] = $request->input("public") ? $request['public'] : "0";
         $request->validate([
             'name' => 'required',
             'href' => 'required',
+            'public' => 'required',
         ]);
         $link->update($request->all());
         return redirect()->route('group.show', ['group' => $link->id_group]);

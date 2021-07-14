@@ -14,8 +14,13 @@
         @foreach ($items as $item)
             <tr>
                 <td><a href="{{route('group.show', $item->group)}}" class="link-secondary"> {{$item->group->name}}</a></td>
-                <td><a href="//{{$item->href}}" target="_blank" class="link-success"> {{$item->name}}</a></td>
+                @if(str_contains($item->href, 'http'))
+                    <td><a href="{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a></td>
+                @else
+                    <td><a href="\\{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a></td>
+                @endif
                 <td style="text-align:end">
+                    <i class="fas @if($item->public) fa-globe @else fa-lock @endif"></i>
                     <a href="{{route('link.edit', $item)}}" class="btn btn-warning btn-sm px-3">
                         <span class="btn-label"><i class="fa fa-pencil"></i></span>
                     </a>
