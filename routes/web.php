@@ -3,7 +3,7 @@
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\VariableController;
-use App\Models\Link;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 /*
@@ -30,6 +30,10 @@ Route::resources(
     ]
 );
 
+
+Route::get('/public', [LinkController::class, 'indexPublic'])->name('public.index');
+Route::get('/public/group/{group}', [GroupController::class, 'showPublic'])->name('public.group.show');
+
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Cache is cleared";
@@ -37,4 +41,3 @@ Route::get('/clear-cache', function() {
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

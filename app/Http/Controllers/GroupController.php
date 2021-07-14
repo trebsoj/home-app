@@ -61,6 +61,20 @@ class GroupController extends Controller
         );
         return view('group.show', compact('links', 'group'));
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function showPublic(Group $group)
+    {
+        $links = $this->linkController->replaceVariables(
+            Link::where('id_group', '=', $group->id)->orderBy('name', 'asc')->get()
+        );
+        $public = true;
+        return view('public.group', compact('links', 'group', 'public'));
+    }
 
     /**
      * Show the form for editing the specified resource.

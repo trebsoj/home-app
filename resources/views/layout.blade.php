@@ -15,8 +15,13 @@
   </head>
 
   <body>
+
   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-md-3 col-lg-2 px-3" href="{{route('link.index')}}">/home</a>
+      @if(empty($public))
+        <a class="navbar-brand col-md-3 col-lg-2 px-3" href="{{route('link.index')}}">/home</a>
+      @else
+          <a class="navbar-brand col-md-3 col-lg-2 px-3" href="{{route('public.index')}}">/home</a>
+      @endif
       <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
@@ -27,21 +32,35 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
           <div class="position-sticky pt-3">
 
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('variable') ? 'active' : '' }}" href="{{route('variable.index')}}">
-                        <span data-feather="link"></span>
-                        Variables
-                    </a>
-                </li>
-            </ul>
+            {{-- Only show, if not public route --}}
+            @if(empty($public))
+              <ul class="nav flex-column ">
+                  <li class="nav-item">
+                      <a class="nav-link" target="_blank" href="{{route('public.index')}}">
+                          <span data-feather="external-link"></span>
+                          Public route
+                      </a>
+                  </li>
+              </ul>
+              <ul class="nav flex-column">
+                  <li class="nav-item">
+                      <a class="nav-link {{ Request::is('variable') ? 'active' : '' }}" href="{{route('variable.index')}}">
+                          <span data-feather="dollar-sign"></span>
+                          Variables
+                      </a>
+                  </li>
+              </ul>
+            @endif
+
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                 <span>Groups</span>
             </h6>
             <ul class="nav flex-column">
               @foreach ($groups as $item)
                 <li class="nav-item">
-                  <a class="nav-link {{ Helper::isMenuActive($item, Request::segment(1), Request::segment(2)) ? 'active' : '' }}" href="{{route('group.show', $item)}}">
+                  <a class="nav-link {{ Helper::isMenuActive($item, Request::segment(1), Request::segment(2)) ? 'active' : '' }}"
+                     href="@if(empty($public)){{route('group.show', $item)}}@else{{route('public.group.show', $item)}}@endif"
+                  >
                     <span data-feather="link"></span>
                     {{$item->name}}
                   </a>
@@ -50,21 +69,22 @@
             </ul>
 
 
-            <form action="{{route('group.store')}}" method="POST" class="mt-4 row g-1 needs-validation" novalidate>
-              @csrf
-              <div class="col-12">
-                <input type="text" name="name" placeholder="New group" class="form-control" id="vLinkName" required>
-                <div class="valid-feedback"></div>
-              </div>
-              <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-labeled btn-success btn-block">
-                  <span class="btn-label"><i class="fa fa-plus"></i></span>
-                </button>
-              </div>
-            </form>
+              {{-- Only show, if not public route --}}
+              @if(empty($public))
+                <form action="{{route('group.store')}}" method="POST" class="mt-4 row g-1 needs-validation" novalidate>
+                  @csrf
+                  <div class="col-12">
+                    <input type="text" name="name" placeholder="New group" class="form-control" id="vLinkName" required>
+                    <div class="valid-feedback"></div>
+                  </div>
+                  <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-labeled btn-success btn-block">
+                      <span class="btn-label"><i class="fa fa-plus"></i></span>
+                    </button>
+                  </div>
+                </form>
 
-
-              <form action="{{route('logout')}}" method="POST" class="mt-5 row g-1 needs-validation" id="fmLogout" novalidate>
+                <form action="{{route('logout')}}" method="POST" class="mt-5 row g-1 needs-validation" id="fmLogout" novalidate>
                   @csrf
                   <div class="gap-2" style="text-align: center;">
                       <button type="submit" class="btn btn-labeled btn-danger btn-block" onclick="return confirm('Are you sure you want to log out?')">
@@ -72,7 +92,8 @@
                           Exit
                       </button>
                   </div>
-              </form>
+                </form>
+              @endif
           </div>
         </nav>
 

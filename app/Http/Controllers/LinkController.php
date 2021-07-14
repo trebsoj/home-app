@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
-use App\Models\Group;
 use App\Models\Variable;
 use Illuminate\Http\Request;
 use PHPUnit\TextUI\XmlConfiguration\Groups;
@@ -27,6 +26,22 @@ class LinkController extends Controller
                     ->values()
                     ->all()
             )
+        ]);
+    }
+
+    public function indexPublic()
+    {
+        return view('public.index', [
+            'items' => $this->replaceVariables(
+                Link::with('group')
+                    ->where('public','=', '1')
+                    ->get()
+                    ->sortBy(function ($link) {
+                        return strtoupper("{$link->group->name}{$link->name}");
+                    })
+                    ->values()
+                    ->all()
+            ), 'public'=> true
         ]);
     }
 
