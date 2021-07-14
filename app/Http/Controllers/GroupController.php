@@ -70,7 +70,10 @@ class GroupController extends Controller
     public function showPublic(Group $group)
     {
         $links = $this->linkController->replaceVariables(
-            Link::where('id_group', '=', $group->id)->orderBy('name', 'asc')->get()
+            Link::where('id_group', '=', $group->id)
+                ->where('public', '=', "1")
+                ->orderBy('name', 'asc')
+                ->get()
         );
         $public = true;
         return view('public.group', compact('links', 'group', 'public'));
