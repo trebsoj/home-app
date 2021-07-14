@@ -57,6 +57,10 @@
             </h6>
             <ul class="nav flex-column">
               @foreach ($groups as $item)
+                @if(!empty($public) && $item->links_public == 0)
+                    @continue
+                @endif
+                {{-- Print group --}}
                 <li class="nav-item">
                   <a class="nav-link {{ Helper::isMenuActive($item, Request::segment(1), Request::segment(2)) ? 'active' : '' }}"
                      href="@if(empty($public)){{route('group.show', $item)}}@else{{route('public.group.show', $item)}}@endif"
@@ -67,7 +71,6 @@
                 </li>
               @endforeach
             </ul>
-
 
               {{-- Only show, if not public route --}}
               @if(empty($public))
@@ -98,17 +101,17 @@
         </nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            @if ($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <div class="container mt-4">
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @yield('content')
             </div>
         </main>
