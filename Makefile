@@ -40,9 +40,9 @@ down: ## Stop containers
 
 restart: down up ## Restart all containers
 
-update:
-    git pull
-    docker-compose run $(DC_RUN_ARGS) app php ./artisan migrate
+update: ## Update to the latest version of the application
+	git pull
+	docker-compose run $(DC_RUN_ARGS) app php ./artisan migrate
 
 clean: ## Make clean
 	-docker-compose run $(DC_RUN_ARGS) --no-deps app sh -c "\
