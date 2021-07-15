@@ -17,7 +17,7 @@ class LinkController extends Controller
     public function index()
     {
         return view('link.index', [
-            'items' => $this->replaceVariables(
+            'links' => $this->replaceVariables(
                 Link::with('group')
                     ->get()
                     ->sortBy(function ($link) {
@@ -32,7 +32,7 @@ class LinkController extends Controller
     public function indexPublic()
     {
         return view('public.index', [
-            'items' => $this->replaceVariables(
+            'links' => $this->replaceVariables(
                 Link::with('group')
                     ->where('public','=', '1')
                     ->get()

@@ -3,29 +3,35 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
-    <h1 class="h2">{{$group->name}}</h1>
-</div>
+    @php
+        $previousGroup = ''
+    @endphp
 
+    @foreach ($links as $item)
+        @if($previousGroup <> $item->group->name)
+            <h5 style="margin-top: 20px">{{$item->group->name}}</h5>
+        @endif
 
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-      </tr>
-    </thead>
-    <tbody>
-        @foreach ($links as $item)
-            <tr>
-                @if(str_contains($item->href, 'http'))
-                    <td><a href="{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a></td>
-                @else
-                    <td><a href="\\{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a></td>
-                @endif
-            </tr>
-        @endforeach
-    </tbody>
-  </table>
+        @if(str_contains($item->href, 'http'))
+            <a href="{{$item->href}}" class="link-success" target="_blank" style="text-decoration: inherit;margin-left: 10px">
+                <span class="badge bg-secondary" style="font-size: 1.1em;padding:6px;margin-bottom: 15px">
+                    <i class="fas @if($item->public) fa-globe @else fa-lock @endif"></i>
+                    {{$item->name}}
+                </span>
+            </a>
+        @else
+            <a href="\\{{$item->href}}" class="link-success" target="_blank" style="text-decoration: inherit;margin-left: 10px">
+                <span class="badge bg-secondary" style="font-size: 1.1em;padding:6px;margin-bottom: 15px">
+                    <i class="fas @if($item->public) fa-globe @else fa-lock @endif"></i>
+                    {{$item->name}}
+                </span>
+            </a>
+        @endif
+
+        @php
+            $previousGroup = $item->group->name
+        @endphp
+    @endforeach
 
 
 

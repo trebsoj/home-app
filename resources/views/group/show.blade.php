@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
-    <h1 class="h2">{{$group->name}}</h1>
+    <h3>{{$group->name}}</h3>
     <div class="">
         <a  href="{{route('group.edit',$group)}}" class="btn btn-warning btn-sm px-3">
             <span class="btn-label"><i class="fa fa-pencil"></i></span>
@@ -53,11 +53,13 @@
     <tbody>
         @foreach ($links as $item)
             <tr>
-                @if(str_contains($item->href, 'http'))
-                    <td><a href="{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a></td>
-                @else
-                    <td><a href="\\{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a></td>
-                @endif
+                <td style="vertical-align: middle;">
+                    @if(str_contains($item->href, 'http'))
+                        <a href="{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a>
+                    @else
+                        <a href="\\{{$item->href}}" class="link-success" target="_blank">{{$item->name}}</a>
+                    @endif
+                </td>
                 <td style="text-align:end">
                     <i class="fas @if($item->public) fa-globe @else fa-lock @endif"></i>
                     <a href="{{route('link.edit', $item)}}" class="btn btn-warning btn-sm px-3">

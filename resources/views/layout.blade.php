@@ -65,7 +65,7 @@
                 @endif
                 {{-- Print group --}}
                 <li class="nav-item">
-                  <a class="nav-link {{ Helper::isMenuActive($item, Request::segment(1), Request::segment(2)) ? 'active' : '' }}"
+                  <a class="nav-link {{ Helper::isMenuActive($item, Request::segment(1), Request::segment(2),Request::segment(3)) ? 'active' : '' }}"
                      href="@if(empty($public)){{route('group.show', $item)}}@else{{route('public.group.show', $item)}}@endif"
                   >
                     <span data-feather="link"></span>
@@ -94,8 +94,8 @@
                   @csrf
                   <div class="gap-2" style="text-align: center;">
                       <button type="submit" class="btn btn-labeled btn-danger btn-block" onclick="return confirm('Are you sure you want to log out?')">
-                          <span class="btn-label"><i class="fa fa-times-circle"></i></span>
-                          Exit
+                          <span class="btn-label"><i class="fa fa-sign-out-alt"></i></span>
+                          Logout
                       </button>
                   </div>
                 </form>

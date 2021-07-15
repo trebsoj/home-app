@@ -5,7 +5,7 @@
 
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Edit variable</h1>
+    <h3>Edit variable</h3>
 </div>
 
 

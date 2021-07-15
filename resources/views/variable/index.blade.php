@@ -5,7 +5,7 @@
 
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Variables</h1>
+    <h3>Variables</h3>
 </div>
 
 <form action="{{route('variable.store')}}" method="POST" class="row g-3 needs-validation" novalidate>
