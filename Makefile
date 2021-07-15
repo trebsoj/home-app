@@ -42,7 +42,7 @@ restart: down up ## Restart all containers
 
 update: ## Update to the latest version of the application
 	git pull
-	docker-compose run $(DC_RUN_ARGS) app php ./artisan migrate
+	init
 
 clean: ## Make clean
 	-docker-compose run $(DC_RUN_ARGS) --no-deps app sh -c "\
