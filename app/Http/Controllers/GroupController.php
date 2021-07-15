@@ -37,15 +37,15 @@ class GroupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|unique:groups'
         ]);
-        Group::create($request->all());
-        return back();
+        $group = Group::create($request->all());
+        return redirect()->route('group.show', ['group' => $group->id]);
     }
 
     /**
