@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\Link;
 use Illuminate\Support\ServiceProvider;
 use Prophecy\Exception\Exception;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
         if (! $this->app->runningInConsole()) {
             // App is not running in CLI context
             // Do HTTP-specific stuff here
